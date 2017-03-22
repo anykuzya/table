@@ -19,21 +19,20 @@ void generateTables() {
     header.insertAdjacentElement('beforeend', headerElement);
   }
   TableSectionElement body = table.createTBody();
-  for (int i = 1; i < 21; i++) {
+  for (int j = 1; j < 21; j++) {
     TableRowElement row =  body.insertRow(-1);
 
     Element headerElement = new Element.tag('th');
-    String txt = i.toString();
-    headerElement.text = txt;
-    headerElement.id = txt;
+    String rId = j.toString();
+    headerElement.text = rId;
+    headerElement.id = rId;
     row.insertAdjacentElement('beforeend', headerElement);
 
     for (int i = 65; i < 91; i++) {
       TableCellElement cell = row.addCell();
-      String c = new String.fromCharCode(i);
-      String r = i.toString();
+      String cId = new String.fromCharCode(i);
       cell.contentEditable = 'True';
-      headerElement.id = c+r;
+      cell.id = cId + rId;
     }
   }
 }
