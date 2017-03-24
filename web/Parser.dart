@@ -86,7 +86,7 @@ class ParsedFormula {
           break;
         }
         else {
-          this. parsed.add(stack_op.removeFirst());
+          this.parsed.add(stack_op.removeFirst());
         }
       }
     }

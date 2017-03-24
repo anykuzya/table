@@ -10,6 +10,9 @@ import 'Table.dart';
 void main() {
   TableInfo table = new TableInfo();
   generateTables(table);
+  if (window.localStorage['table'] != null) {
+    table.recover(window.localStorage['table']);
+  }
 }
 
 void generateTables(TableInfo tableInfo) {

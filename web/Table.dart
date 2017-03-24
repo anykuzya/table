@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'dart:collection';
 import 'dart:math';
+import 'dart:convert';
 import 'Parser.dart';
 import 'Token.dart';
 
@@ -11,13 +12,14 @@ class CellData {
   List<CellData> containsIn = new List<CellData>();
   List<CellData> dependsOn = new List<CellData>();
 
-  CellData(id) {
+  CellData(String id) {
     this.id = id;
     this.cell = querySelector("#" + id);
   }
   void showFormula() {
     this.cell.text = this.formula;
   }
+  dynamic toJson() => formula;
 
   void calc(TableInfo table, bool fromCell) {
     if (fromCell) {
@@ -143,6 +145,7 @@ class CellData {
     }
     notifyAll(table);
     window.getSelection().removeAllRanges();
+    table.save();
   }
   void notifyAll(TableInfo table) {
     for (CellData c in containsIn) {
@@ -170,5 +173,17 @@ class TableInfo {
   void formula(id) {
     cells[id].showFormula();
   }
-
+  void save() {
+    window.localStorage['table'] = JSON.encode(this.cells);
+  }
+  void recover(var json) {
+    Map data = JSON.decode(json);
+    for (String id in data.keys) {
+      cells[id] = new CellData(id);
+      cells[id].formula = data[id];
+    }
+    for (String id in cells.keys) {
+      cells[id].calc(this, true);
+    }
+  }
 }
