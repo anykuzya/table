@@ -2,82 +2,10 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
-
-class ParsedFormula {
-  bool isAtom;
-  String atom;
-  ParsedFormula(String formula) {
-    if (formula.length == 0 || formula[0] != "=") {
-      this.isAtom = true;
-      this.atom = formula;
-    } else {
-      //parsing shoud be here
-    }
-  }
-}
-
-class CellData {
-  String formula = "";
-  String id;
-  Element cell;
-  List<CellData> containsIn = new List<CellData>();
-  List<CellData> dependsOn = new List<CellData>();
-
-  CellData(id) {
-    this.id = id;
-    this.cell = querySelector("#" + id);
-  }
-  void showFormula() {
-    this.cell.text = this.formula;
-  }
-
-  void calc() {
-    this.formula = this.cell.text+"+";
-    ParsedFormula parsedFormula = new ParsedFormula(this.formula);
-
-    Element cell = querySelector("#" + id);
-    cell.text = 'result 00';
-    for (int  k = 0; k < 10000; k++) {
-      window.console.log(cell.text);
-    }
-    if (parsedFormula.isAtom) {
-      this.cell.text = parsedFormula.atom;
-    } else {
-      clearDependences();
-//      todo
-    }
+import 'dart:collection';
+import 'Table.dart';
 
 
-    window.getSelection().removeAllRanges();
-  }
-  void notifyAll() {
-    for (CellData c in containsIn) {
-      c.calc();
-    }
-  }
-  void clearDependences() {
-    for (CellData c in dependsOn) {
-      c.containsIn.remove(this);
-    }
-    dependsOn.clear();
-  }
-
-}
-
-class TableInfo {
-  Map<String, CellData> cells;
-
-  TableInfo() {
-    cells = new Map<String, CellData>();
-  }
-  void calculate(id) {
-    cells[id].calc();
-  }
-  void formula(id) {
-    cells[id].showFormula();
-  }
-
-}
 
 void main() {
   TableInfo table = new TableInfo();
