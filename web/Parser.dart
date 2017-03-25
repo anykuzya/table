@@ -4,7 +4,7 @@ import 'dart:collection';
 import 'dart:html';
 
 class ParsedFormula {
-  bool isAtom;
+  bool isAtom = false;
   String atom;
   List<Token> parsed = new List<Token>();
   ParsedFormula(CellData cell) {

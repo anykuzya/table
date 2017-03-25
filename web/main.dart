@@ -48,7 +48,8 @@ void generateTables(TableInfo tableInfo) {
         tableInfo.formula(id);
       });
       cell.onKeyDown.listen((KeyboardEvent e) {
-        if (e.code == "Enter") {
+        if (e.keyCode == 13) {
+          print("key ${e.code}");
           e.preventDefault();
           String id = e.target.id;
           tableInfo.calculate(id);
