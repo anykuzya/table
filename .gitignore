@@ -4,6 +4,10 @@
 build/
 # Remove the following pattern if you wish to check in your lock file
 pubspec.lock
+analysis_options.yaml
 
 # Directory created by dartdoc
 doc/api/
+.idea/hw_proglangs.iml
+.idea/modules.xml
+.idea/workspace.xml
